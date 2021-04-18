@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<template id="report_Courses">
+    <t t-call="web.external_layout">
+        <t t-set="doc" t-value="doc.with_context(lang=doc.env.lang)" />
+        <div class="page">
+            <h2 class="mt16">
+                <t t-if="doc.user_id">
+                    <span>Instructor:-</span>
+                    <span t-field="doc.user_id.name"/>
+                </t>
+                
+            </h2>
+            <table class="table table-sm o_main_table">
+                <thead>
+                    <tr>
+                         <th style="font-size: 15px;color:#4f8dcb !important;" name="th_image" class="text-left">Title</th>
+                         <th style="font-size: 15px;color:#4f8dcb !important;" name="th_description" class="text-left">Room</th>
+                         <th style="font-size: 15px;color:#4f8dcb !important;" name="th_quantity" class="text-right">completion_time</th>
+                     </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <t t-foreach="doc.slide_ids" t-as="line">
+                          <tr t-att-class="'bg-200 font-weight-bold'">
+                                  <td name="td_name"><span t-field="line.name"/></td>
+                                  <td name="td_name"><span t-field="line.lessons_location_id"/></td>
+                                  <td name="td_name"><span t-field="line.completion_time"/></td>
+                          </tr>
+                      </t>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</template>
+
+
+<template id="temp_report_courses_mgt">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="courses_management.report_Courses" t-lang="doc.env.lang"/>
+        </t>
+    </t>
+</template>
+
+<data>
+    <report 
+        id="courses_management_rpt"
+        string="Courses"
+        model="slide.channel" 
+        report_type="qweb-pdf"
+        file="courses_management.temp_report_courses_mgt" 
+        name="courses_management.temp_report_courses_mgt"
+        print_report_name="'%s' % (object.name)"
+    />
+</data>
+
+</odoo>

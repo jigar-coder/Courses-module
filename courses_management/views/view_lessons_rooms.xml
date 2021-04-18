@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_lessons_event_location_tree">
+           <field name="name">Lessons Event Locations list</field>
+           <field name="model">lessons.room</field>
+           <field name="arch" type="xml">
+             <tree>
+               <field name="name"/>
+               <field name="capacity"/>
+             </tree>
+           </field>
+         </record>
+
+        <record model="ir.ui.view" id="view_lessons_event_location_form">
+            <field name="name">Lessons Event Locations</field>
+            <field name="model">lessons.room</field>
+            <field name="arch" type="xml">
+                <form string="Lessons Event Location">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="capacity"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_lessons_room">
+            <field name="name">Room</field>
+            <field name="res_model">lessons.room</field>
+        </record>
+
+         <menuitem
+            id="menu_lessons_room"
+            action="action_lessons_room"
+            parent="website_slides.website_slides_menu_courses"/>
+     </data>
+</odoo>
