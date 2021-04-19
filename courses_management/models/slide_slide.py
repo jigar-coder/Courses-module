@@ -15,8 +15,9 @@ class ChannelUsersRelation(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('channel_id') and vals.get('partner_id'):
-            channel_id = vals.get('channel_id')
-            instructor_id = channel_id and channel_id.user_id and channel_id.user_id.id or False
+            channel_obj = self.env['slide.channel']
+            channel_id = channel_obj.browse(vals.get('channel_id'))
+            instructor_id = channel_id and channel_id.user_id and channel_id.user_id or False
             instructor_partner_id = instructor_id and instructor_id.partner_id and instructor_id.partner_id.id or False
             partner_id = vals.get('partner_id') or False
             if instructor_partner_id == partner_id: 
